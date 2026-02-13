@@ -9,8 +9,8 @@ const w95fa = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "SUNDESI | Music",
-  description: "Official music profile of SUNDESI",
+  title: "CASE #SD-2025-0113 | Criminal Investigation Department",
+  description: "CID Workstation — Active investigation into the masked artist known as SUNDESI. All evidence classified.",
 };
 
 export default function RootLayout({

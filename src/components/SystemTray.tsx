@@ -26,18 +26,24 @@ function getCalendarDays(year: number, month: number) {
 }
 
 const SOCIAL_LINKS = [
-  { label: "Spotify", href: "https://open.spotify.com/artist/5uNJsvLTSFN0WkGJthx3AF" },
-  { label: "SoundCloud", href: "https://soundcloud.com/sundesi" },
-  { label: "Instagram", href: "https://instagram.com/sundesimusic" },
-  { label: "YouTube", href: "https://youtube.com/@sundesi" },
+  { label: "Audio Surveillance Channel", href: "https://open.spotify.com/artist/5uNJsvLTSFN0WkGJthx3AF" },
+  { label: "Underground Network Monitor", href: "https://soundcloud.com/sundesi" },
+  { label: "Visual Intelligence Feed", href: "https://instagram.com/sundesimusic" },
+  { label: "Public Activity Monitor", href: "https://youtube.com/@sundesi" },
 ];
+
+// Calculate investigation day (days since case opened: Jan 1 2025)
+function getInvestigationDay() {
+  const caseStart = new Date(2025, 0, 1);
+  const now = new Date();
+  return Math.floor((now.getTime() - caseStart.getTime()) / (1000 * 60 * 60 * 24));
+}
 
 export default function SystemTray() {
   const [activePopup, setActivePopup] = useState<ActivePopup>(null);
   const [time, setTime] = useState<string>("");
   const trayRef = useRef<HTMLDivElement>(null);
 
-  // Clock tick
   useEffect(() => {
     const update = () => {
       const now = new Date();
@@ -52,7 +58,6 @@ export default function SystemTray() {
     return () => clearInterval(id);
   }, []);
 
-  // Close popup on outside click (defer listener to avoid catching the opening click)
   useEffect(() => {
     if (!activePopup) return;
     const handler = (e: MouseEvent) => {
@@ -60,7 +65,6 @@ export default function SystemTray() {
         setActivePopup(null);
       }
     };
-    // Use requestAnimationFrame so the listener isn't active during the current click
     const raf = requestAnimationFrame(() => {
       document.addEventListener("mousedown", handler);
     });
@@ -86,7 +90,7 @@ export default function SystemTray() {
         <button
           className="flex items-center justify-center w-6 h-6 cursor-pointer bg-transparent border-none p-0"
           onClick={() => toggle("network")}
-          aria-label="Network"
+          aria-label="Surveillance Channels"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <rect x="1" y="3" width="6" height="5" fill="#C0C0C0" stroke="#000" strokeWidth="1" />
@@ -114,7 +118,7 @@ export default function SystemTray() {
         <div className="win95-tray-popup right-0">
           <div className="win95-window" style={{ width: 240 }}>
             <div className="win95-title-bar">
-              <span>Date/Time Properties</span>
+              <span>Case Timeline</span>
               <div className="win95-title-bar-buttons">
                 <button className="win95-title-btn" onClick={() => setActivePopup(null)}>✕</button>
               </div>
@@ -150,7 +154,7 @@ export default function SystemTray() {
                   ))}
                 </tbody>
               </table>
-              <div className="win95-status-bar text-center text-xs mt-2">No upcoming events</div>
+              <div className="win95-status-bar text-center text-xs mt-2">Investigation Day: {getInvestigationDay()}</div>
             </div>
           </div>
         </div>
@@ -159,9 +163,9 @@ export default function SystemTray() {
       {/* Network popup */}
       {activePopup === "network" && (
         <div className="win95-tray-popup right-0">
-          <div className="win95-window" style={{ width: 200 }}>
+          <div className="win95-window" style={{ width: 240 }}>
             <div className="win95-title-bar">
-              <span>Network</span>
+              <span>Surveillance Channels</span>
               <div className="win95-title-bar-buttons">
                 <button className="win95-title-btn" onClick={() => setActivePopup(null)}>✕</button>
               </div>
