@@ -1,26 +1,300 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --win95-desktop: #1B2A4A;
+  --win95-gray: #C0C0C0;
+  --win95-dark-gray: #808080;
+  --win95-title-bar: #000080;
+  --win95-title-bar-inactive: #808080;
+  --win95-white: #FFFFFF;
+  --win95-black: #000000;
+  --win95-highlight: #000080;
+  --win95-border-light: #DFDFDF;
+  --win95-border-dark: #404040;
+  --background: var(--win95-desktop);
+  --foreground: var(--win95-black);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--win95-desktop);
+  color: var(--win95-black);
+  font-family: var(--font-w95fa), Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+*, *::before, *::after {
+  cursor: url('/mic-cursor.png') 2 1, default !important;
+}
+
+a, button, [role="button"], input[type="submit"], select,
+.win95-button, .win95-title-btn, .win95-desktop-icon, .win95-start-menu-item {
+  cursor: url('/mic-cursor.png') 2 1, pointer !important;
+}
+
+/* === Win95 Window === */
+.win95-window {
+  background: var(--win95-gray);
+  border-top: 2px solid var(--win95-white);
+  border-left: 2px solid var(--win95-white);
+  border-right: 2px solid var(--win95-border-dark);
+  border-bottom: 2px solid var(--win95-border-dark);
+  box-shadow: inset 1px 1px 0 var(--win95-border-light), inset -1px -1px 0 var(--win95-dark-gray);
+  padding: 3px;
+}
+
+/* === Title Bar === */
+.win95-title-bar {
+  background: linear-gradient(90deg, var(--win95-title-bar), #1084D0);
+  color: var(--win95-white);
+  font-weight: bold;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  font-size: 13px;
+  height: 22px;
+}
+
+.win95-title-bar-buttons {
+  display: flex;
+  gap: 2px;
+}
+
+.win95-title-btn {
+  width: 16px;
+  height: 14px;
+  background: var(--win95-gray);
+  border-top: 1px solid var(--win95-white);
+  border-left: 1px solid var(--win95-white);
+  border-right: 1px solid var(--win95-border-dark);
+  border-bottom: 1px solid var(--win95-border-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  line-height: 1;
+  cursor: default;
+  padding: 0;
+  color: var(--win95-black);
+}
+
+.win95-title-btn:active {
+  border-top: 1px solid var(--win95-border-dark);
+  border-left: 1px solid var(--win95-border-dark);
+  border-right: 1px solid var(--win95-white);
+  border-bottom: 1px solid var(--win95-white);
+}
+
+/* === Buttons === */
+.win95-button {
+  background: var(--win95-gray);
+  border-top: 2px solid var(--win95-white);
+  border-left: 2px solid var(--win95-white);
+  border-right: 2px solid var(--win95-border-dark);
+  border-bottom: 2px solid var(--win95-border-dark);
+  box-shadow: inset 1px 1px 0 var(--win95-border-light), inset -1px -1px 0 var(--win95-dark-gray);
+  padding: 4px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--win95-black);
+  text-decoration: none;
+  display: inline-block;
+  min-width: 75px;
+  text-align: center;
+}
+
+.win95-button:active {
+  border-top: 2px solid var(--win95-border-dark);
+  border-left: 2px solid var(--win95-border-dark);
+  border-right: 2px solid var(--win95-white);
+  border-bottom: 2px solid var(--win95-white);
+  box-shadow: inset 1px 1px 0 var(--win95-dark-gray), inset -1px -1px 0 var(--win95-border-light);
+  padding: 5px 15px 3px 17px;
+}
+
+.win95-button-pressed {
+  border-top: 2px solid var(--win95-border-dark);
+  border-left: 2px solid var(--win95-border-dark);
+  border-right: 2px solid var(--win95-white);
+  border-bottom: 2px solid var(--win95-white);
+  box-shadow: inset 1px 1px 0 var(--win95-dark-gray), inset -1px -1px 0 var(--win95-border-light);
+  background: repeating-conic-gradient(var(--win95-gray) 0% 25%, var(--win95-white) 0% 50%) 0 0 / 2px 2px;
+}
+
+/* === Inset (sunken border for images/video) === */
+.win95-inset {
+  border-top: 2px solid var(--win95-border-dark);
+  border-left: 2px solid var(--win95-border-dark);
+  border-right: 2px solid var(--win95-white);
+  border-bottom: 2px solid var(--win95-white);
+  box-shadow: inset 1px 1px 0 var(--win95-dark-gray), inset -1px -1px 0 var(--win95-border-light);
+  background: var(--win95-black);
+}
+
+/* === Taskbar === */
+.win95-taskbar {
+  background: var(--win95-gray);
+  border-top: 2px solid var(--win95-white);
+  padding: 2px 4px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+/* === Start Menu === */
+.win95-start-menu {
+  background: var(--win95-gray);
+  border-top: 2px solid var(--win95-white);
+  border-left: 2px solid var(--win95-white);
+  border-right: 2px solid var(--win95-border-dark);
+  border-bottom: 2px solid var(--win95-border-dark);
+  box-shadow: inset 1px 1px 0 var(--win95-border-light), inset -1px -1px 0 var(--win95-dark-gray);
+  min-width: 180px;
+}
+
+.win95-start-menu-item {
+  padding: 6px 24px 6px 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--win95-black);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.win95-start-menu-item:hover {
+  background: var(--win95-highlight);
+  color: var(--win95-white);
+}
+
+.win95-start-menu-sidebar {
+  background: var(--win95-dark-gray);
+  width: 24px;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 4px;
+  justify-content: center;
+}
+
+.win95-start-menu-sidebar span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: var(--win95-white);
+  font-weight: bold;
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+/* === Retro Scrollbar === */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: repeating-conic-gradient(var(--win95-gray) 0% 25%, var(--win95-white) 0% 50%) 0 0 / 2px 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--win95-gray);
+  border-top: 2px solid var(--win95-white);
+  border-left: 2px solid var(--win95-white);
+  border-right: 2px solid var(--win95-border-dark);
+  border-bottom: 2px solid var(--win95-border-dark);
+}
+
+::-webkit-scrollbar-button {
+  background: var(--win95-gray);
+  border-top: 1px solid var(--win95-white);
+  border-left: 1px solid var(--win95-white);
+  border-right: 1px solid var(--win95-border-dark);
+  border-bottom: 1px solid var(--win95-border-dark);
+  display: block;
+  height: 16px;
+  width: 16px;
+}
+
+/* === Status Bar (sunken strip at bottom of window) === */
+.win95-status-bar {
+  border-top: 1px solid var(--win95-dark-gray);
+  margin-top: 4px;
+  padding: 2px 4px;
+  font-size: 12px;
+  color: var(--win95-black);
+}
+
+.win95-status-bar-panel {
+  border-top: 1px solid var(--win95-border-dark);
+  border-left: 1px solid var(--win95-border-dark);
+  border-right: 1px solid var(--win95-white);
+  border-bottom: 1px solid var(--win95-white);
+  padding: 1px 4px;
+  font-size: 12px;
+}
+
+/* === Desktop Icons === */
+.win95-desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 6px;
+  cursor: default;
+  color: var(--win95-white);
+  background: transparent;
+  border: 1px solid transparent;
+  user-select: none;
+  min-width: 64px;
+}
+
+.win95-desktop-icon:focus {
+  outline: none;
+}
+
+.win95-desktop-icon-selected {
+  border: 1px dotted var(--win95-white);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* === System Tray === */
+.win95-system-tray {
+  border-top: 1px solid var(--win95-border-dark);
+  border-left: 1px solid var(--win95-border-dark);
+  border-right: 1px solid var(--win95-white);
+  border-bottom: 1px solid var(--win95-white);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  height: 28px;
+}
+
+.win95-tray-popup {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  z-index: 60;
+}
+
+/* === Desktop Window Overlay === */
+.win95-desktop-overlay {
+  position: fixed;
+  inset: 48px 0 0 0;
+  z-index: 40;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px;
+  overflow-y: auto;
+  pointer-events: none;
+}
+
+.win95-desktop-overlay > * {
+  pointer-events: auto;
 }

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- Classic Win95 arrow cursor, pink fill, black border -->
+  <g transform="scale(1.2)">
+    <!-- Black outline -->
+    <polygon points="0,0 0,20 4,16 7,22 9,21 6,15 11,15" fill="#000000"/>
+    <!-- Pink fill -->
+    <polygon points="1,1.5 1,17.5 4.5,14.5 7.5,20 8,19.8 5.5,14 9.5,14" fill="#FF8CAD"/>
+  </g>
+</svg>
