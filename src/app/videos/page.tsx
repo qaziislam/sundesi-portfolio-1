@@ -4,7 +4,7 @@ import TopNav from "@/components/TopNav";
 import VideosContent from "@/components/VideosContent";
 
 export const metadata: Metadata = {
-  title: "Videos | SUNDESI",
+  title: "Surveillance Archive | CASE #SD-2025-0113",
 };
 
 export default function VideosPage() {
@@ -12,7 +12,7 @@ export default function VideosPage() {
     <>
       <TopNav />
       <div className="p-4 md:p-8 pt-[48px]">
-        <Window title="Videos - SUNDESI" className="max-w-5xl mx-auto">
+        <Window title="Surveillance Archive - Video Evidence [CLASSIFIED]" className="max-w-5xl mx-auto">
           <VideosContent />
         </Window>
       </div>

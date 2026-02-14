@@ -7,14 +7,20 @@ import Window from "@/components/Window";
 import MusicContent from "@/components/MusicContent";
 import VideosContent from "@/components/VideosContent";
 import ContactContent from "@/components/ContactContent";
+import SuspectProfile from "@/components/SuspectProfile";
+import CaseNotes from "@/components/CaseNotes";
+import LoginScreen from "@/components/LoginScreen";
 
 const windowConfig: Record<string, { title: string; content: React.ReactNode; className: string }> = {
-  music: { title: "Music - SUNDESI", content: <MusicContent />, className: "max-w-5xl w-full" },
-  videos: { title: "Videos - SUNDESI", content: <VideosContent />, className: "max-w-5xl w-full" },
-  contact: { title: "Contact - SUNDESI", content: <ContactContent />, className: "max-w-md w-full" },
+  music: { title: "Evidence Locker - Audio Files [CASE #SD-2025-0113]", content: <MusicContent />, className: "max-w-5xl w-full" },
+  videos: { title: "Surveillance Archive - Video Evidence [CLASSIFIED]", content: <VideosContent />, className: "max-w-5xl w-full" },
+  contact: { title: "Informant Network - Secure Channels", content: <ContactContent />, className: "max-w-md w-full" },
+  suspect: { title: "SUSPECT PROFILE — SUNDESI (The Messenger)", content: <SuspectProfile />, className: "max-w-lg w-full" },
+  notes: { title: "FIELD NOTES — Inspector Devki Sharma", content: <CaseNotes />, className: "max-w-2xl w-full" },
 };
 
 export default function Home() {
+  const [loggedIn, setLoggedIn] = useState(false);
   const [openWindows, setOpenWindows] = useState<string[]>(["water"]);
   const [zMap, setZMap] = useState<Record<string, number>>({ water: 1 });
   const [zCounter, setZCounter] = useState(2);
@@ -33,6 +39,10 @@ export default function Home() {
     setOpenWindows((prev) => prev.filter((w) => w !== id));
   };
 
+  if (!loggedIn) {
+    return <LoginScreen onLogin={() => setLoggedIn(true)} />;
+  }
+
   return (
     <>
       <TopNav openWindows={openWindows} onWindowClick={openWindow} />
@@ -43,7 +53,7 @@ export default function Home() {
           if (id === "water") {
             return (
               <div key={id} className="win95-desktop-overlay" style={{ zIndex: 40 + (zMap[id] || 0) }} onMouseDown={() => bringToFront(id)}>
-                <Window title="Sundesi: The Messenger" className="max-w-2xl w-full" onClose={() => closeWindow(id)}>
+                <Window title="EVIDENCE_001.mov - Intercepted Footage [CONFIDENTIAL]" className="max-w-2xl w-full" onClose={() => closeWindow(id)}>
                   <div className="win95-inset">
                     <video
                       src="/hero-video.mp4"
